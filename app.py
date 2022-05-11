@@ -24,7 +24,7 @@ def recognize_gesture():
 
     hand_landmarks = landmark_pb2.NormalizedLandmarkList()
     for i in range(len(xlist)):
-        hand_landmarks.landmark.add(x=xlist[i], y=ylist[i])
+        hand_landmarks.landmark.add(x=xlist[i] * 3 / 4, y=ylist[i])
 
     margin = 10
     minX = min(hand_landmarks.landmark, key=lambda i: i.x).x
@@ -40,8 +40,8 @@ def recognize_gesture():
     res_lmrks = [[]]
     
     for i in range(len(hand_landmarks.landmark)):
-        hand_landmarks.landmark[i].x = ((hand_landmarks.landmark[i].x - minX) * (200 - 2 * margin) / maxLength + margin) / 200
-        hand_landmarks.landmark[i].y = ((hand_landmarks.landmark[i].y - minY) * (200 - 2 * margin) / maxLength + margin) / 200
+        hand_landmarks.landmark[i].x = ((hand_landmarks.landmark[i].x - minX) * (192 - 2 * margin) / maxLength + margin) / 192
+        hand_landmarks.landmark[i].y = ((hand_landmarks.landmark[i].y - minY) * (192 - 2 * margin) / maxLength + margin) / 192
         res_lmrks[0].append([hand_landmarks.landmark[i].x, hand_landmarks.landmark[i].y])
     
     pred = model_loaded.predict(res_lmrks)
