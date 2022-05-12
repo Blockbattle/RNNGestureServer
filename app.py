@@ -6,7 +6,7 @@ from mediapipe.framework.formats import landmark_pb2
 import mediapipe as mp
 import cv2
 
-model_loaded = keras.models.load_model('gr_rus_rnn_model')#('gr_rnn01_model')
+model_loaded = keras.models.load_model('rus_gr_rnn_model100')#('gr_rnn01_model')
 
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ def recognize_gesture():
 
     hand_landmarks = landmark_pb2.NormalizedLandmarkList()
     for i in range(len(xlist)):
-        hand_landmarks.landmark.add(x=xlist[i] * 3 / 4, y=ylist[i])
+        hand_landmarks.landmark.add(x=xlist[i] * 3 / 4, y=ylist[i]) #3*4 - исправление разрешения экрана на квадратное
 
     margin = 10
     minX = min(hand_landmarks.landmark, key=lambda i: i.x).x
